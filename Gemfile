@@ -44,6 +44,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
   gem 'database_cleaner-active_record'
+  gem 'phantomjs'
   gem 'capybara'
   gem 'poltergeist'
   gem 'byebug'
