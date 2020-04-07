@@ -1,6 +1,9 @@
 require 'rails_helper'
+require 'database_cleaner/active_record'
 
+DatabaseCleaner.strategy = :truncation
 RSpec.describe Product, type: :model do
+  DatabaseCleaner.clean
   cat1 = Category.find_or_create_by! name: 'Fruit'
   subject { 
     described_class.new(name: "Apple", 
@@ -9,9 +12,18 @@ RSpec.describe Product, type: :model do
                         category_id: cat1.id
 
     )  
-}
+  }
   describe 'Validations' do
     it "is valid with all attributes" do
+      cat2 = Category.find_or_create_by! name: 'Veggie'
+      subject { 
+        described_class.new(name: "cucumber", 
+                            price: 12,
+                            quantity: 1,
+                            category_id: cat2.id
+    
+        )  
+      }
       expect(subject).to be_valid
     end
     it "is not valid without a name" do
