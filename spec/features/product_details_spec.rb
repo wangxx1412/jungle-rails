@@ -4,7 +4,6 @@ require 'database_cleaner/active_record'
 DatabaseCleaner.strategy = :truncation
 
 RSpec.feature "Visitor navigates to Product Detail page", type: :feature, js: true do
-
   # SETUP
   DatabaseCleaner.clean
   before :each do
