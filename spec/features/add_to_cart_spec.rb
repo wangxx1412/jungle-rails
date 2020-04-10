@@ -4,7 +4,6 @@ require 'database_cleaner/active_record'
 DatabaseCleaner.strategy = :truncation
 
 RSpec.feature "Visitor navigates to home page", type: :feature, js: true do
-
   # SETUP
   DatabaseCleaner.clean
   before :each do
@@ -26,9 +25,6 @@ RSpec.feature "Visitor navigates to home page", type: :feature, js: true do
     visit root_path
     visit root_path
     first('.product').click_button('Add')
-    # DEBUG
-    # save_screenshot
-
     # VERIFY
     expect(page).to have_content('My Cart (1)')
     # puts page.html
