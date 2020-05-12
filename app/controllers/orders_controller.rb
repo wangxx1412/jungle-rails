@@ -10,6 +10,8 @@ class OrdersController < ApplicationController
     order  = create_order(charge)
 
     if order.valid?
+      @user = User.find(session[:user_id])
+      OrderMailer.order_email(order, @user).deliver_now
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
     else

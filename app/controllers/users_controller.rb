@@ -8,8 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
 
-      # Tell the UserMailer to send a welcome email after save
-  
+      # Tell the UserMailer to send a welcome email 
       UserMailer.welcome_email(@user).deliver_now
       redirect_to('/', :notice => 'User created')
 
