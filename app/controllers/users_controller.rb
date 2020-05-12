@@ -3,13 +3,20 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      session[:user_id] = user.id
-      redirect_to '/'
+    @user = User.new(user_params)
+ 
+    if @user.save
+      session[:user_id] = @user.id
+
+      # Tell the UserMailer to send a welcome email after save
+  
+      UserMailer.welcome_email(@user).deliver_now
+      redirect_to('/', :notice => 'User created')
+
     else
-      redirect_to '/signup'
+      render :action => 'new'
     end
+    
   end
 
   private
