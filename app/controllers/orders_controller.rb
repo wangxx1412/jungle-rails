@@ -10,9 +10,11 @@ class OrdersController < ApplicationController
     order  = create_order(charge)
 
     if order.valid?
+      @line_items = LineItem.find_by(order_id: order.id)
       @user = User.find(session[:user_id])
-      OrderMailer.order_email(order, @user).deliver_now
-``      empty_cart!
+      OrderMailer.order_email(order, @user, @line_items).deliver_now
+
+      empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
